@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Client notification api",
-        "description": "test task",
+        "description": "FYI: For private rootes use token `abc`",
         "contact": {
             "email": "7924@inbox.lv"
         },
@@ -228,16 +228,6 @@
                 "summary": "List notifications",
                 "operationId": "privateListNotifications",
                 "parameters": [
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "number of active page",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "example": "1"
-                    },
                     {
                         "name": "page",
                         "in": "query",
@@ -523,6 +513,11 @@
             },
             "NotificationValueObject": {
                 "properties": {
+                    "id": {
+                        "description": "notification id",
+                        "type": "integer",
+                        "example": "1"
+                    },
                     "clientId": {
                         "description": "client id",
                         "type": "integer",

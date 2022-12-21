@@ -10,6 +10,7 @@ use App\Jobs\SendNotificationJob;
 use App\Repositories\NotificationRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -30,16 +31,6 @@ class NotificationController extends Controller
      *     tags={"Private API notification"},
      *     operationId="privateListNotifications",
      *     security={{ "bearerAuth": {} }},
-     *     @OA\Parameter(
-     *         name="page",
-     *         in="query",
-     *         description="number of active page",
-     *         required=false,
-     *         example="1",
-     *         @OA\Schema(
-     *             type="integer"
-     *         )
-     *     ),
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
