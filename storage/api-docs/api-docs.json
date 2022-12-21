@@ -1,0 +1,625 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Client notification api",
+        "description": "test task",
+        "contact": {
+            "email": "7924@inbox.lv"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/api/client/{clientId}": {
+            "get": {
+                "tags": [
+                    "Public API client"
+                ],
+                "summary": "Show client",
+                "operationId": "showClient",
+                "parameters": [
+                    {
+                        "name": "clientId",
+                        "in": "path",
+                        "description": "ID of customer that needs to be show",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid ID supplied"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Public API client"
+                ],
+                "summary": "Update client",
+                "operationId": "updateClient",
+                "parameters": [
+                    {
+                        "name": "clientId",
+                        "in": "path",
+                        "description": "ID of customer that needs to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ClientStoreRequest"
+                },
+                "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/validationErrorResponse422"
+                    },
+                    "204": {
+                        "description": "Client updated"
+                    },
+                    "401": {
+                        "description": "Invalid ID supplied"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Public API client"
+                ],
+                "summary": "Delete client",
+                "operationId": "destroyClient",
+                "parameters": [
+                    {
+                        "name": "clientId",
+                        "in": "path",
+                        "description": "ID of customer that needs to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "successful deleted client"
+                    },
+                    "404": {
+                        "description": "Invalid ID supplied"
+                    }
+                }
+            }
+        },
+        "/api/client": {
+            "post": {
+                "tags": [
+                    "Public API client"
+                ],
+                "summary": "Store new client",
+                "operationId": "storeClient",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ClientStoreRequest"
+                },
+                "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/validationErrorResponse422"
+                    },
+                    "201": {
+                        "description": "Record created"
+                    }
+                }
+            }
+        },
+        "/api/private/client": {
+            "get": {
+                "tags": [
+                    "Private API client"
+                ],
+                "summary": "List clients",
+                "operationId": "privateListClients",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "number of active page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientCollectionResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/private/client/{clientId}": {
+            "get": {
+                "tags": [
+                    "Private API client"
+                ],
+                "summary": "Show client",
+                "operationId": "privateShowClient",
+                "parameters": [
+                    {
+                        "name": "clientId",
+                        "in": "path",
+                        "description": "ID of customer that needs to show",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "401": {
+                        "description": "unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/private/notification": {
+            "get": {
+                "tags": [
+                    "Private API notification"
+                ],
+                "summary": "List notifications",
+                "operationId": "privateListNotifications",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "number of active page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "number of active page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "clientId",
+                        "in": "query",
+                        "description": "filter by clientid",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationCollectionResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Private API notification"
+                ],
+                "summary": "Store new notification",
+                "operationId": "privateStoreNotifications",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/NotificationsStoreRequest"
+                },
+                "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/validationErrorResponse422"
+                    },
+                    "201": {
+                        "description": "Record created"
+                    },
+                    "401": {
+                        "description": "unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/private/notification/{notificationId}": {
+            "get": {
+                "tags": [
+                    "Private API notification"
+                ],
+                "summary": "Show notification",
+                "operationId": "privateShowNotification",
+                "parameters": [
+                    {
+                        "name": "notificationId",
+                        "in": "path",
+                        "description": "ID of notification that needs to show",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "401": {
+                        "description": "unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Notification": {
+                "properties": {
+                    "clientId": {
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "channel": {
+                        "type": "string",
+                        "example": "email"
+                    },
+                    "content": {
+                        "type": "string",
+                        "example": "some content"
+                    }
+                },
+                "type": "object"
+            },
+            "validationErrorSchema": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "fieldNameOne first error message"
+                    },
+                    "errors": {
+                        "properties": {
+                            "fieldNameOne": {
+                                "type": "array",
+                                "items": {
+                                    "anyOf": [
+                                        {
+                                            "type": "string",
+                                            "example": "fieldNameOne first error message"
+                                        },
+                                        {
+                                            "type": "string",
+                                            "example": "fieldNameOne second error message"
+                                        }
+                                    ]
+                                }
+                            },
+                            "fieldNameTwo": {
+                                "type": "array",
+                                "items": {
+                                    "anyOf": [
+                                        {
+                                            "type": "string",
+                                            "example": "fieldNameTwo first error message"
+                                        },
+                                        {
+                                            "type": "string",
+                                            "example": "fieldNameTwo second error message"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "ClientCollectionResource": {
+                "properties": {
+                    "count": {
+                        "description": "record count per page",
+                        "type": "integer",
+                        "format": "integer",
+                        "example": "2"
+                    },
+                    "total": {
+                        "description": "total count of records",
+                        "type": "integer",
+                        "format": "integer",
+                        "example": "10"
+                    },
+                    "prev": {
+                        "description": "url to previous page",
+                        "type": "string",
+                        "format": "link",
+                        "example": "/api/private/client?page=1"
+                    },
+                    "next": {
+                        "description": "url to next page",
+                        "type": "string",
+                        "format": "link",
+                        "example": "/api/private/client?page=3"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClientResource"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ClientResource": {
+                "$ref": "#/components/schemas/ClientValueObject"
+            },
+            "NotificationCollectionResource": {
+                "properties": {
+                    "count": {
+                        "description": "record count per page",
+                        "type": "integer",
+                        "format": "integer",
+                        "example": "2"
+                    },
+                    "total": {
+                        "description": "total count of records",
+                        "type": "integer",
+                        "format": "integer",
+                        "example": "10"
+                    },
+                    "prev": {
+                        "description": "url to previous page",
+                        "type": "string",
+                        "format": "link",
+                        "example": "/api/private/notification?page=1"
+                    },
+                    "next": {
+                        "description": "url to next page",
+                        "type": "string",
+                        "format": "link",
+                        "example": "/api/private/notification?page=3"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/NotificationResource"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "NotificationResource": {
+                "$ref": "#/components/schemas/NotificationValueObject"
+            },
+            "ClientValueObject": {
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "id",
+                        "example": "1"
+                    },
+                    "firstName": {
+                        "description": "first name",
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "lastName": {
+                        "description": "last name",
+                        "type": "string",
+                        "example": "Doe"
+                    },
+                    "email": {
+                        "description": "email",
+                        "type": "string",
+                        "example": "johndoe@example.com"
+                    },
+                    "phone": {
+                        "description": "phone",
+                        "type": "string",
+                        "example": "+37128323111"
+                    }
+                },
+                "type": "object"
+            },
+            "NotificationValueObject": {
+                "properties": {
+                    "clientId": {
+                        "description": "client id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "channel": {
+                        "description": "channel",
+                        "type": "string",
+                        "example": "sms"
+                    },
+                    "content": {
+                        "description": "content",
+                        "type": "string",
+                        "example": "some content"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "validationErrorResponse422": {
+                "description": "validation error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/validationErrorSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "requestBodies": {
+            "ClientStoreRequest": {
+                "description": "Client object that needs to be added to the store",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "required": [
+                                "firstName",
+                                "lastName",
+                                "email",
+                                "phoneNumber"
+                            ],
+                            "properties": {
+                                "firstName": {
+                                    "type": "string",
+                                    "format": "string",
+                                    "example": "John"
+                                },
+                                "lastName": {
+                                    "type": "string",
+                                    "format": "string",
+                                    "example": "Doe"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "format": "email",
+                                    "example": "johndoe@example.com"
+                                },
+                                "phoneNumber": {
+                                    "type": "string",
+                                    "format": "phone",
+                                    "example": "+37128323111"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "NotificationsStoreRequest": {
+                "description": "Client object that needs to be added to the store",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "$ref": "#/components/schemas/Notification"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "Login with email and password to get the authentication token",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
