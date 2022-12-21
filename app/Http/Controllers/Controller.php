@@ -12,7 +12,7 @@ use OpenApi\Annotations as OA;
  * @OA\Info(
  *      version="1.0.0",
  *      title="Client notification api",
- *      description="FYI: For private rootes use token `abc`",
+ *      description="FYI: For private routes use token `abc`",
  *      @OA\Contact(
  *          email="7924@inbox.lv"
  *      ),
