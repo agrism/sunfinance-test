@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Client notification api",
-        "description": "FYI: For private rootes use token `abc`",
+        "description": "FYI: For private routes use token `abc`",
         "contact": {
             "email": "7924@inbox.lv"
         },
